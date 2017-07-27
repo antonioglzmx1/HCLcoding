@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+var randomNumber=0;
+var HandPlayer1=0;
+var HandPC=0;
+
+function StartGame(){
+  DealCard1();
+  DealCard1();
+  DealCard2();
+  DealCard2();
+}
+
+function DealCard1() {
+  randomNumber=Math.floor(Math.random() * 9)+1;
+  HandPlayer1+=randomNumber;
+  document.getElementById("HandPlayer1").innerHTML += " "+randomNumber +" ,";
+  document.getElementById("TotalPlayer1").innerHTML ="Total = "+HandPlayer1;
+    if(HandPlayer1>21)
+    {
+      document.getElementById("Winner").innerHTML = "The Winner is : PC";
+    }
+}
+
+function DealCard2() {
+  randomNumber=Math.floor(Math.random() * 9)+1;
+  HandPC+=randomNumber;
+  document.getElementById("HandPC").innerHTML += " "+randomNumber +" ,";
+  document.getElementById("TotalPC").innerHTML ="Total = "+HandPC;
+}
+
+var temp;
+function Finish(){
+      if(HandPC<17){
+        temp = setTimeout(function(){ DealCard2(); Finish();}, 700);
+      }
+      else{
+        if(HandPlayer1>HandPC||HandPC>21){
+        document.getElementById("Winner").innerHTML ="Winner : Player 1";
+        }
+        else{
+          if(HandPC>HandPlayer1){
+          document.getElementById("Winner").innerHTML ="Winner : PC";
+          }
+          else{
+            document.getElementById("Winner").innerHTML ="DRAW!!";
+          }
+        }
+      }
+    }
+
+function myFunction(){
+    location.reload();
+}
+</script>
+
+<body onload="StartGame()">
+<button onclick="myFunction()">New Game</button>
+<p>Do you want another card?</p>
+
+<button onclick="DealCard1()">YES</button>
+<button onclick="Finish()">NO</button>
+<p>Hand Player 1 </p>
+<p id="HandPlayer1">Cards :</p>
+<p id="TotalPlayer1">Total =</p>
+
+<p>Hand PC </p>
+<p id="HandPC">Cards :</p>
+<p id="TotalPC">Total =</p>
+
+<h1 id="Winner"></h1>
+</body>
+</html>
